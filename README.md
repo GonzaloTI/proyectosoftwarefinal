@@ -1,4 +1,4 @@
-# GESTION DOCUMENTAL SI2
+# Sistema web Interpretador de ecografias 
 Laravel
 
 # Instalacion del proyecto
