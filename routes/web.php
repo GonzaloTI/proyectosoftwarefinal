@@ -6,6 +6,12 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MedicoController;
+use App\Http\Controllers\DiagnosticoController;
+
+
+
+
+
 
 Route::get('/', function () {
     return view('home');
@@ -59,3 +65,12 @@ Route::get('/admin/registrarClientes/deleteC/{id}',[ClienteController::class,'de
 Route::get('/admin/registrarClientes/editarC/{id}',[ClienteController::class,'editCliente'])->middleware('auth.admin')->name('admin.editclientes');
 Route::post('/admin/registrarClientes/editarC1/{id}',[ClienteController::class,'updateCliente'])->middleware('auth.admin')->name('admin.updateclientes');
 
+
+
+
+Route::get('/diagnosticos/create', [DiagnosticoController::class, 'create'])->name('diagnosticos.create');
+Route::post('/diagnosticos', [DiagnosticoController::class, 'store'])->name('diagnosticos.store');
+
+
+/*/////////// VER LISTA DE DIAGNOSTICO////////////////// */
+Route::get('/lista', [DiagnosticoController::class, 'index'])->name('diagnosticos.index');
