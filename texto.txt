@@ -1,0 +1,24 @@
+CREATE DATABASE laravelSoftware1;
+
+CREATE USER tito WITH PASSWORD '123';
+GRANT ALL PRIVILEGES ON DATABASE laravelSoftware1 TO tito;
+
+
+
+# Crear una nueva rama y cambiarse a ella
+git checkout -b tito-gestionar_diagnostico
+
+# Realizar cambios y hacer commit de esos cambios
+git add .
+git commit -m "Descripción de los cambios"
+
+# Cambiarse a la rama principal
+git checkout main  # o master
+
+# Juntar la rama 'feature-branch' con la rama principal
+git merge feature-branch
+
+# Resolver conflictos (si los hay), luego hacer commit de los cambios resultantes
+
+# Empujar los cambios al repositorio remoto
+git push origin main  # o master
