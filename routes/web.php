@@ -74,3 +74,6 @@ Route::post('/diagnosticos', [DiagnosticoController::class, 'store'])->name('dia
 
 /*/////////// VER LISTA DE DIAGNOSTICO////////////////// */
 Route::get('/lista', [DiagnosticoController::class, 'index'])->name('diagnosticos.index');
+
+
+Route::get('/diagnosticos/solicitarAPI', [DiagnosticoController::class, 'create'])->name('diagnosticos.create');

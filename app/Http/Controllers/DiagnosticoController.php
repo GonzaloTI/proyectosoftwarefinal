@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Diagnostico;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Http;
 class DiagnosticoController extends Controller
 {
     public function index()
@@ -60,4 +60,55 @@ class DiagnosticoController extends Controller
         Diagnostico::destroy($id); // Eliminar el diagnóstico con el ID proporcionado
         return redirect()->route('diagnosticos.index')->with('success', 'Diagnóstico eliminado exitosamente.');
     }
+
+
+
+    public function solicitudAPI(Request $request)
+        {
+            // Validar la solicitud
+            $request->validate([
+                'ci' => 'required|numeric',
+                'nombre' => 'required|string',
+                'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validar que sea una imagen
+            ]);
+    
+            // Guardar la imagen en el almacenamiento de Laravel (opcional, depende de tu caso de uso)
+            if ($request->hasFile('imagen')) {
+                $imagen = $request->file('imagen');
+                // Aquí podrías guardar la imagen en el almacenamiento si es necesario
+            }
+    
+            // Preparar los datos para enviar a la API externa
+            $apiUrl = 'https://detect.roboflow.com/liver_ultrasound/10';
+            $apiKey = 'ez0KYg4w4v0R1U0OkbWh';
+    
+            // Configurar los datos a enviar
+            $formData = [
+                'api_key' => $apiKey,
+                'file' => $request->file('imagen'), // Asumiendo que 'imagen' es el nombre del campo file en el formulario
+            ];
+    
+            // Realizar la solicitud a la API usando HTTP Client de Laravel
+            try {
+                $response = Http::post($apiUrl, $formData);
+    
+                // Manejar la respuesta de la API
+                if ($response->successful()) {
+                    // Procesar la respuesta según tus necesidades
+                    $responseData = $response->json();
+                    return redirect()->back()->with('success', 'Imagen enviada correctamente. Respuesta: ' . json_encode($responseData));
+                } else {
+                    // Manejar el caso de error de la API
+                    return redirect()->back()->with('error', 'Error al enviar la imagen a la API.');
+                }
+            } catch (\Exception $e) {
+                // Capturar y manejar errores de conexión u otros errores
+                return redirect()->back()->with('error', 'Error al conectar con la API: ' . $e->getMessage());
+            }
+        }
+
+    
+
+
+
 }
