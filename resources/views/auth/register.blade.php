@@ -1,83 +1,156 @@
-@extends('layouts.app')
+@extends('layouts.index')
 
-@section('title','Register')
+@section('title', 'HepatoScan AI')
 
 @section('content')
-<div class="block mx-auto my-12 p-8 bg-white w-1/2 borderr border-gray-200 rounded-lg shadow-lg">
-<h1 class="text-3xl text-center font-bold">Acceso</h1>
+    <!-- Page content-->
+    <section class="py-5">
+        <div class="container px-5">
+            <!-- Contact form-->
+            <div class="rounded-3 py-5 px-4 px-md-5 mb-5">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bolder">Registro</h1>
+                    <p class="lead fw-normal text-muted mb-0">Ingresa tus datos personales</p>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
+                        <!-- to get an API token!-->
+                        <form id="contactForm" method="POST">
+                            @csrf
+                            <!-- Name input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="nombre" name="nombre" type="text"
+                                    placeholder="Ingresa tu nombre..." data-sb-validations="required" />
+                                <label for="name">Nombre</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                @error('nombre')
+                                    <p style="color: red">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-<form class="mt-4" method="POST" action="">
-    @csrf
+                            <!-- Last name input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="a_paterno" name="a_paterno" type="text"
+                                    placeholder="Ingresa tu apellido paterno..." data-sb-validations="required" />
+                                <label for="a_paterno">Apellido Paterno</label>
+                                <div class="invalid-feedback" data-sb-feedback="a_paterno:required">A last name is required.
+                                </div>
+                                @error('a_paterno')
+                                    <p style="color: red">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-    <input type="text" class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="ci" id="ci" name="ci">
+                            <!-- Second last name input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="a_materno" name="a_materno" type="text"
+                                    placeholder="Ingresa tu apellido materno..." data-sb-validations="required" />
+                                <label for="a_materno">Apellido Materno</label>
+                                <div class="invalid-feedback" data-sb-feedback="a_materno:required">A second last name is
+                                    required.</div>
+                                @error('a_materno')
+                                    <p style="color: red">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-    @error('ci')
-     <p class="border border-red-500 rounded-md bg-red-100 w-full text-red-600 p-2 my-2">{{ $message }}</p>
-    @enderror
+                            <!--genero-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="sexo" name="sexo" type="text"
+                                    placeholder="Ingresa tu genero..." data-sb-validations="required" />
+                                <label for="sexo">Genero</label>
+                                <div class="invalid-feedback" data-sb-feedback="sexo:required">Generi requerido</div>
+                                @error('sexo')
+                                    <p style="color: red">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-    <input type="text" class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="nombre" id="nombre" name="nombre">
+                            <!-- CI input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="ci" name="ci" type="text"
+                                    placeholder="Ingresa tu CI..." data-sb-validations="required" />
+                                <label for="ci">CI</label>
+                                <div class="invalid-feedback" data-sb-feedback="ci:required">A CI is required.</div>
+                                @error('ci')
+                                    <p style="color: red">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-    @error('nombre')
-     <p class="border border-red-500 rounded-md bg-red-100 w-full text-red-600 p-2 my-2">{{ $message }}</p>
-    @enderror
- 
+                            <!-- Phone number input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="telefono" name="telefono" type="tel"
+                                    placeholder="Ingresa tu telefono..." data-sb-validations="required" />
+                                <label for="telefono">Telefono</label>
+                                <div class="invalid-feedback" data-sb-feedback="telefono:required">A phone number is
+                                    required.</div>
+                                @error('telefono')
+                                    <p style="color: red">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-    <input type="text" class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="a_paterno" id="a_paterno" name="a_paterno">
+                            <!-- Address input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="direccion" name="direccion" type="text"
+                                    placeholder="Ingresa tu direccion..." data-sb-validations="required" />
+                                <label for="direccion">Direccion</label>
+                                <div class="invalid-feedback" data-sb-feedback="direccion:required">A address is required.
+                                </div>
+                                @error('direccion')
+                                    <p style="color: red">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-    @error('a_paterno')
-     <p class="border border-red-500 rounded-md bg-red-100 w-full text-red-600 p-2 my-2">{{ $message }}</p>
-    @enderror
+                            <!-- username input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="name" name="name" type="text"
+                                    placeholder="Ingresa tu nombre de usuario..." data-sb-validations="required" />
+                                <label for="name">Nombre de usuario</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A username is required.</div>
+                                @error('name')
+                                    <p style="color: red">{{ $message }}</p>
+                                @enderror
+                            </div>
 
+                            <!-- Email address input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="email" type="email" placeholder="name@example.com"
+                                    data-sb-validations="required,email" />
+                                <label for="email">Email address</label>
+                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                @error('email')
+                                    <p style="color: red">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-    <input type="text" class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="a_materno" id="a_materno" name="a_materno">
+                            <!-- Password input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="password" name="password" type="password"
+                                    placeholder="Create a password" data-sb-validations="required" />
+                                <label for="password">Password</label>
+                                <div class="invalid-feedback" data-sb-feedback="password:required">A password is required.
+                                </div>
+                                @error('password')
+                                    <p style="color: red">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-    @error('a_materno')
-     <p class="border border-red-500 rounded-md bg-red-100 w-full text-red-600 p-2 my-2">{{ $message }}</p>
-    @enderror
-
-    <input type="text" class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="sexo" id="sexo" name="sexo">
-
-    @error('sexo')
-     <p class="border border-red-500 rounded-md bg-red-100 w-full text-red-600 p-2 my-2">{{ $message }}</p>
-    @enderror
-
-    <input type="text" class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="telefono" id="telefono" name="telefono">
-
-    @error('telefono')
-     <p class="border border-red-500 rounded-md bg-red-100 w-full text-red-600 p-2 my-2">{{ $message }}</p>
-    @enderror
-
-    <input type="text" class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="direccion" id="direccion" name="direccion">
-
-    @error('direccion')
-     <p class="border border-red-500 rounded-md bg-red-100 w-full text-red-600 p-2 my-2">{{ $message }}</p>
-    @enderror
-
-    <input type="text" class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="User Name" id="name" name="name">
-   
-    @error('name')
-     <p class="border border-red-500 rounded-md bg-red-100 w-full text-red-600 p-2 my-2">{{ $message }}</p>
-    @enderror
-    
-    <input type="email" class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="Email" id="email" name="email">
-   
-    @error('email')
-     <p class="border border-red-500 rounded-md bg-red-100 w-full text-red-600 p-2 my-2">{{ $message }}</p>
-    
-     @enderror
-    <input type="password" class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="Password" id="password" name="password">
-    
-    @error('password')
-     <p class="border border-red-500 rounded-md bg-red-100 w-full text-red-600 p-2 my-2">{{ $message }}</p>
-    @enderror
-   
-    <input type="password" class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="Password Confirmation" id="password_confirmation" name="password_confirmation">
-
-    <button type="sudmit" class="rounded-md bg-blue-500 w-full text-lg text-white font-semibold p-2 my-3 hover:bg-blue-600">Registrar</button>
-
-</form>
-
-
-
-</div>
+                            <!-- Password confirmation input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="password_confirmation" name="password_confirmation"
+                                    type="password" placeholder="Confirm password" data-sb-validations="required" />
+                                <label for="password_confirmation">Confirm password</label>
+                                <div class="invalid-feedback" data-sb-feedback="password_confirmation:required">A password
+                                    confirmation is required.</div>
+                                @error('password_confirmation')
+                                    <p style="color: red">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <!-- Submit Button-->
+                            <div class="d-grid"><button class="btn btn-dark btn-lg" id="submitButton"
+                                    type="submit">Submit</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
