@@ -11,6 +11,7 @@ use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Middleware\CheckSubscription;
 use App\Http\Controllers\DiagnosticoController;
+use App\Http\Controllers\RecomendacionController;
 
 
 
@@ -91,13 +92,27 @@ Route::post('/admin/registrarClientes/editarC1/{id}', [ClienteController::class,
 
 
 
-Route::get('/diagnosticos/create', [DiagnosticoController::class, 'create'])->name('diagnosticos.create');
-Route::post('/diagnosticos', [DiagnosticoController::class, 'store'])->name('diagnosticos.store');
 
+
+
+//Route::get('/diagnosticos/solicitarAPI', [DiagnosticoController::class, 'create'])->name('diagnosticos.create');
 
 /*/////////// VER LISTA DE DIAGNOSTICO////////////////// */
-Route::get('/lista', [DiagnosticoController::class, 'index'])->name('diagnosticos.index');
+//Route::get('/lista', [DiagnosticoController::class, 'index'])->name('diagnosticos.index');
 
 
 Route::get('/diagnosticos/crearsolicitud', [DiagnosticoController::class, 'createsolicitud'])->name('diagnosticos.createsolicitud');
 Route::post('/diagnosticos/solicitarAPI', [DiagnosticoController::class, 'solicitudAPI'])->name('diagnosticos.api.enviar');
+/*/////////// RUTAS DE SOLICITAR DIAGNOSTICO Y RECOMENDACIONES////////////////// */
+
+
+Route::middleware('auth')->group(function () {
+    Route::resource('diagnosticos', DiagnosticoController::class);
+});
+// /diagnostico/create
+Route::middleware('auth')->group(function () {
+    Route::resource('recomendacion', RecomendacionController::class);
+});
+
+
+// /recomendacion/create

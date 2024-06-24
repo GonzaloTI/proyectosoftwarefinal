@@ -49,6 +49,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user = new User;
+        $user->name = 'Pedro';
+        $user->email =  'pedro@gmail.com';
+        $user->password = '1234';
+        $user->role = 'medico';
+        $user->save();
+
+        $user = new User;
         $user->name = 'cliente';
         $user->email = 'cliente@gmail.com';
         $user->password = '1234';
@@ -72,6 +79,13 @@ class DatabaseSeeder extends Seeder
         $user->role = 'cliente';
         $user->save();
 
+        $user = new User;
+        $user->name = 'yamil';
+        $user->email =  'yamil@gmail.com';
+        $user->password = '1234';
+        $user->role = 'cliente';
+        $user->save();
+        
 
     }
 

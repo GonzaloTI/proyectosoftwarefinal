@@ -31,5 +31,8 @@ class cliente extends Model
         //un cliente tendra muchas ventas
         return $this->hasMany('App\Models\venta');
     }
-
+    public function diagnosticos()
+    {
+        return $this->hasMany(Diagnostico::class);
+    }
 }

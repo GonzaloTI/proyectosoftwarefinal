@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Diagnostico extends Model
 {
     use HasFactory;
-    protected $table = 'diagnostico'; // Especificar el nombre de la tabla si es diferente al convencional
-    // Definir el nombre de la clave primaria
-    
+
+    protected $table = 'diagnostico';
+
     protected $fillable = [
         'id',
         'resultado_ia',
@@ -38,4 +38,15 @@ class Diagnostico extends Model
         return $this->hasMany(Ecografia::class, 'id_diagnostico');
     }
 
+    // Definir la relación con el modelo User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Definir la relación con el modelo Recomendacion
+    public function recomendaciones()
+    {
+        return $this->hasMany(Recomendacion::class, 'diagnostico_id');
+    }
 }
