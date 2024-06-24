@@ -12,7 +12,7 @@
             <div class="text-center">
                 <h1>Index cliente</h1>
             </div>
-       
+            @include('diagnosticos.create')
 
 
 

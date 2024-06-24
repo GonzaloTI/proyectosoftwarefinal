@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Crear Nuevo Diagnóstico</h1>
+        <h1 class="text-center">Crear Nuevo Diagnóstico</h1>
         <form method="POST" action="{{ route('diagnosticos.store') }}">
             @csrf
             <div class="form-group">
@@ -23,7 +23,9 @@
                 <label for="a_materno">Apellido Materno:</label>
                 <input type="text" class="form-control" id="a_materno" name="a_materno" placeholder="Apellido Materno" required>
             </div>
-            <button type="submit" class="btn btn-primary">Solicitar Diagnóstico</button>
+            
+            <button  type="submit" class="btn btn-primary">Solicitar Diagnóstico</button>
+            <a href="{{ route('recomendacion.index') }}" class="btn btn-primary">Ver lista</a>
         </form>
     </div>
 @endsection

@@ -16,10 +16,14 @@ class CreateDiagnosticoTable extends Migration
         Schema::create('diagnostico', function (Blueprint $table) {
             $table->id();
             $table->integer('ci');
-            $table->string('nombre',30);
-            $table->string('a_paterno',30);
-            $table->string('a_materno',30);
+            $table->string('nombre', 30);
+            $table->string('a_paterno', 30);
+            $table->string('a_materno', 30);
+            $table->unsignedBigInteger('user_id'); // Campo para almacenar el ID del usuario
             $table->timestamps();
+
+            // Definir la clave foránea con la tabla users
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -52,5 +52,11 @@ class User extends Authenticatable
                 // de user se va a venta
                 return $this->hasMany('App\Models\venta');
             }
+    
+            // Relación con los diagnósticos
+    public function diagnosticos()
+    {
+        return $this->hasMany(Diagnostico::class);
+    }
 
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Diagnostico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
+
 class DiagnosticoController extends Controller
 {
     public function index()
@@ -17,18 +19,42 @@ class DiagnosticoController extends Controller
         return view('diagnosticos.create'); // Mostrar la vista para crear un nuevo diagnóstico
     }
 
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'ci' => 'required|integer',
+    //         'nombre' => 'required|string|max:30',
+    //         'a_paterno' => 'required|string|max:30',
+    //         'a_materno' => 'required|string|max:30',
+           
+    //     ]);
+           
+    //     Diagnostico::create($request->all()); // Crear un nuevo diagnóstico en la base de datos
+    //     return redirect()->route('diagnosticos.create')->with('success', 'Diagnóstico creado exitosamente.');
+    // }
     public function store(Request $request)
-    {
-        $request->validate([
-            'ci' => 'required|integer',
-            'nombre' => 'required|string|max:30',
-            'a_paterno' => 'required|string|max:30',
-            'a_materno' => 'required|string|max:30',
-        ]);
+{
+    $request->validate([
+        'ci' => 'required|integer',
+        'nombre' => 'required|string|max:30',
+        'a_paterno' => 'required|string|max:30',
+        'a_materno' => 'required|string|max:30',
+    ]);
 
-        Diagnostico::create($request->all()); // Crear un nuevo diagnóstico en la base de datos
-        return redirect()->route('diagnosticos.create')->with('success', 'Diagnóstico creado exitosamente.');
-    }
+    // Obtener el ID del usuario autenticado
+    $userId = Auth::id();
+
+    // Crear un nuevo diagnóstico en la base de datos con el ID del usuario
+    Diagnostico::create([
+        'ci' => $request->ci,
+        'nombre' => $request->nombre,
+        'a_paterno' => $request->a_paterno,
+        'a_materno' => $request->a_materno,
+        'user_id' => $userId, // Asignar el ID del usuario autenticado
+    ]);
+
+    return redirect()->route('diagnosticos.create')->with('success', 'Diagnóstico creado exitosamente.');
+}
 
     public function show($id)
     {

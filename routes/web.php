@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\DiagnosticoController;
+use App\Http\Controllers\RecomendacionController;
 
 
 
@@ -68,12 +69,21 @@ Route::post('/admin/registrarClientes/editarC1/{id}',[ClienteController::class,'
 
 
 
-Route::get('/diagnosticos/create', [DiagnosticoController::class, 'create'])->name('diagnosticos.create');
-Route::post('/diagnosticos', [DiagnosticoController::class, 'store'])->name('diagnosticos.store');
 
 
-/*/////////// VER LISTA DE DIAGNOSTICO////////////////// */
-Route::get('/lista', [DiagnosticoController::class, 'index'])->name('diagnosticos.index');
+
+//Route::get('/diagnosticos/solicitarAPI', [DiagnosticoController::class, 'create'])->name('diagnosticos.create');
+
+/*/////////// RUTAS DE SOLICITAR DIAGNOSTICO Y RECOMENDACIONES////////////////// */
 
 
-Route::get('/diagnosticos/solicitarAPI', [DiagnosticoController::class, 'create'])->name('diagnosticos.create');
+Route::middleware('auth')->group(function () {
+    Route::resource('diagnosticos', DiagnosticoController::class);
+});
+// /diagnostico/create
+Route::middleware('auth')->group(function () {
+    Route::resource('recomendacion', RecomendacionController::class);
+});
+
+
+// /recomendacion/create
