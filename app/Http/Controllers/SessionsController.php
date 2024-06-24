@@ -23,7 +23,7 @@ class SessionsController extends Controller{
                     return redirect()->route('medico.index');
                 }else{
                     if(auth()->user()->role == 'cliente'){
-                        return redirect()->route('cliente.index');
+                        return redirect()->route('index');
                     }
                     
                 }

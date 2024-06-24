@@ -12,11 +12,30 @@ class Diagnostico extends Model
     // Definir el nombre de la clave primaria
     
     protected $fillable = [
-        'ci',
-        'nombre',
-        'a_paterno',
-        'a_materno',
+        'id',
+        'resultado_ia',
+        'resultado',
+        'estado',
+        'confidence',
+        'data',
+        'user_id_cliente',
+        'user_id_medico',
     ];
 
     // Aquí puedes definir relaciones con otros modelos si es necesario
+
+    public function cliente()
+    {
+        return $this->belongsTo(User::class, 'user_id_cliente');
+    }
+
+    public function medico()
+    {
+        return $this->belongsTo(User::class, 'user_id_medico');
+    }
+    public function ecografias()
+    {
+        return $this->hasMany(Ecografia::class, 'id_diagnostico');
+    }
+
 }

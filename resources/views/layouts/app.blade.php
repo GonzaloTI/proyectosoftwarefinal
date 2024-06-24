@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
     
-        <title>@yield('title') -Juridico</title>
+        <title>@yield('title') -Diagnostico IA</title>
     
         <!-- Custom fonts for this template-->
         <link href="{{asset('bsadmin/vendor/fontawesome-free/css/all.min.css  ')}}" rel="stylesheet" type="text/css">
@@ -88,7 +88,12 @@
                                  
                                     <a class="collapse-item" href="{{route('diagnosticos.create')}}"> diagnosticos</a>                              
                                     <a class="collapse-item" href="{{route('diagnosticos.index')}}"> lista de diagnosticos</a> 
-                                    
+
+
+
+                                    <a class="collapse-item" href="{{route('diagnosticos.createsolicitud')}}"> Solicitar DIagnostico API</a> 
+                                    <a class="collapse-item" href="{{route('planes')}}"> Planes</a> 
+                                    <a class="collapse-item" href="{{route('service')}}"> Service</a> 
                                  </div>
                             </div>
                        </div>
@@ -194,6 +199,10 @@
                                     <a class="dropdown-item" href="#">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Membresia
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">

@@ -21,10 +21,8 @@ class Medico extends Model
         'user_id'
     ];
     
-    public function user(){
-
-            //relacion uno a uno
-            return $this->hasOne('App\Models\User');
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
