@@ -169,8 +169,8 @@ class DiagnosticoController extends Controller
                     'path' => $filePath,
                     'id_diagnostico'=> $diagnosticonew->id,    
             ]);
-               // dd('Respuesta exitosa', $jsonencore);
-                return view('servicioresultado', compact('dataApi','ecogrfianew'));
+             //  dd('Respuesta exitosa', $jsonencore);
+                return view('servicioresultado', compact('dataApi','ecogrfianew','jsonencore'));
              //   return redirect()->back()->with('success', 'Imagen enviada correctamente. Respuesta: ' . json_encode($responseData));
             } else {
               //  dd('Error en la respuesta de la API', $response); // Punto de depuración

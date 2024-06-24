@@ -55,9 +55,10 @@
                         
                         <img src="{{ asset($ecogrfianew->path) }}" alt="Imagen de Ecografía"  style="height: 500px; overflow-y: auto;">
                     </div>
+
                     <!-- Mostrar la imagen -->
                  
-                  
+                
 
 
 
@@ -65,10 +66,41 @@
             </div>
             <div class="col-4" style="background-color: #f7fdf8;"> <!-- Columna de tamaño 4 -->
                 <!-- Contenido de la columna -->
+              
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="image-container" style="position: relative;">
+                <img src="{{ asset($ecogrfianew->path) }}" alt="Imagen de Ecografía" id="ecografia-image" style="max-width: 100%; height: auto;">
+                <canvas id="canvas" style="position: absolute; top: 0; left: 0;"></canvas>
             </div>
         </div>
     </section>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const image = document.getElementById('ecografia-image');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        image.onload = function() {
+            // Ajustar el canvas al tamaño de la imagen
+            canvas.width = image.naturalWidth;
+            canvas.height = image.naturalHeight;
+
+            // Dibujar una línea en el medio de la imagen
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height / 2);
+            ctx.lineTo(canvas.width, canvas.height / 2);
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        };
+    });
+</script>
+@endpush
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('image').addEventListener('change', function(e) {
