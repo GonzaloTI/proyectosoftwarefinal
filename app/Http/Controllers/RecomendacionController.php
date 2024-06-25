@@ -16,33 +16,41 @@ class RecomendacionController extends Controller
     //     return view('recomendacion.index', compact('recomendaciones'));
     // }
     public function index()
-    {
-        // Obtener el usuario autenticado
-        $user = Auth::user();
+{
+    // Obtener el usuario autenticado
+    $user = Auth::user();
 
-        // Obtener todos los diagnósticos del usuario autenticado
-        $diagnosticos = $user->diagnosticosMedico()->with('recomendaciones')->get();   // se cambio a   'user_id_cliente',
-                                                                                                     // 'user_id_medico',
+    // Obtener todos los diagnósticos del usuario autenticado
+    $diagnosticos = Diagnostico::where('user_id_cliente', $user->id)
+                               ->with('recomendaciones')
+                               ->get();
 
-        // Obtener todas las recomendaciones relacionadas con estos diagnósticos
-        $recomendaciones = collect();
+    // Obtener todas las recomendaciones relacionadas con estos diagnósticos
+    $recomendaciones = collect();
 
-        foreach ($diagnosticos as $diagnostico) {
-            $recomendaciones = $recomendaciones->merge($diagnostico->recomendaciones);
-        }
-
-        return view('recomendacion.index', compact('recomendaciones'));
+    foreach ($diagnosticos as $diagnostico) {
+        $recomendaciones = $recomendaciones->merge($diagnostico->recomendaciones);
     }
+
+    return view('recomendacion.index', compact('recomendaciones'));
+}
     
 
-    // Mostrar el formulario para crear una nueva recomendacion
     public function create()
 {
-    $diagnosticos = Diagnostico::all(); // Obtener todos los diagnósticos disponibles
+    // Obtener al usuario autenticado (médico en este caso)
+    $user = Auth::user();
+ // Obtener los diagnósticos del usuario autenticado
+ $diagnosticos = Diagnostico::where('user_id_cliente', $user->id)->with('cliente')->get();
+    // Obtener todos los diagnósticos que el médico aún no ha recomendado
+    $diagnosticos = Diagnostico::whereDoesntHave('recomendaciones', function ($query) use ($user) {
+        $query->where('nombre_medico', $user->name);
+    })->get();
+
     return view('recomendacion.create', compact('diagnosticos'));
 }
-
-public function store(Request $request)
+    //crea una nueva recomendacion para ese dianogstico
+    public function store(Request $request)
 {
     $request->validate([
         'diagnostico_id' => 'required|exists:diagnostico,id',
@@ -50,28 +58,33 @@ public function store(Request $request)
     ]);
 
     // Obtener al usuario autenticado (médico en este caso)
-    $user = Auth::user();
+    $medico = Auth::user();
+
+    // Obtener el diagnóstico específico
+    $diagnostico = Diagnostico::findOrFail($request->diagnostico_id);
 
     // Verificar si ya existe una recomendación para el mismo diagnóstico y médico
-    $existingRecomendacion = Recomendacion::where('diagnostico_id', $request->diagnostico_id)
-                                          ->where('nombre_medico', $user->name)
-                                          ->exists();
+    $existingRecomendacion = Recomendacion::where('diagnostico_id', $diagnostico->id)
+                                        ->where('nombre_medico', $medico->name)
+                                        ->exists();
 
     if ($existingRecomendacion) {
         return redirect()->back()->with('error', 'Ya has enviado una recomendación para este diagnóstico.');
     }
 
-    // Si no existe, crear una nueva instancia de Recomendacion y asignar los valores
+    // Crear una nueva instancia de Recomendacion y asignar los valores
     $recomendacion = new Recomendacion();
-    $recomendacion->diagnostico_id = $request->diagnostico_id;
+    $recomendacion->diagnostico_id = $diagnostico->id;
     $recomendacion->recomendacion = $request->recomendacion;
-    $recomendacion->nombre_medico = $user->name; // Guardar el nombre del médico autenticado
+    $recomendacion->nombre_medico = $medico->name; // Guardar el nombre del médico autenticado
+    $recomendacion->user_id_cliente = $diagnostico->user_id_cliente; // Guardar el ID del cliente asociado al diagnóstico
 
     // Guardar la recomendación
     $recomendacion->save();
 
     return redirect()->route('medico.index')->with('success', 'Recomendación creada correctamente');
 }
+
 
     // Mostrar una recomendacion específica
     public function show($id)

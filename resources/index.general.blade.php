@@ -10,7 +10,7 @@
       <!-- Illustrations -->
  
       <div class="text-center">
-    <h1>Bienvenidos</h1>
+    <h1>Bienvenido</h1>
     <!-- Porfa si podrias añadirle este boton al menu desplegable que tienes no logre hacerlo -->
     <!-- <a href="{{ route('recomendacion.create') }}" class="btn btn-primary">Ver solicitudes</a> -->
 </div>

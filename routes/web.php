@@ -108,6 +108,8 @@ Route::post('/diagnosticos/solicitarAPI', [DiagnosticoController::class, 'solici
 
 Route::middleware('auth')->group(function () {
     Route::resource('diagnosticos', DiagnosticoController::class);
+    Route::resource('historial', DiagnosticoController::class);
+    
 });
 // /diagnostico/create
 Route::middleware('auth')->group(function () {

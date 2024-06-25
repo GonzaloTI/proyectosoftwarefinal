@@ -50,7 +50,7 @@
             </tbody>
             
         </table>
-        <a href="{{ route('cliente.index') }}" class="btn btn-primary">Volver</a>
+        <!-- <a href="{{ route('index') }}" class="btn btn-primary">Volver</a> -->
     </div>
 </div>
 @endsection
