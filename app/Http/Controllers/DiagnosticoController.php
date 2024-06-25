@@ -18,7 +18,7 @@ class DiagnosticoController extends Controller
     
         // Obtener todos los diagnósticos del usuario autenticado con la relación 'medico' cargada
         $diagnosticos = Diagnostico::where('user_id_cliente', $user->id)
-                                   ->with('medico') // Cargar la relación 'medico'
+                                   ->with('medico', 'ecografias') // Cargar la relaciónes 'medico y imagenes'
                                    ->get();
     
         return view('diagnosticos.index', compact('diagnosticos'));
