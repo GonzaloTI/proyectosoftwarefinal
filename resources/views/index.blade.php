@@ -12,7 +12,7 @@
                         <h1 class="display-5 fw-bolder text-white mb-2">Un sistema de Diagnostico por IA</h1>
                         <p class="lead fw-normal text-white-50 mb-4">Obtenga un resultado rapido y eficaz con la ayuda de profesionales</p>
                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Solicitar Diagnostico</a>
+                            <!-- <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Solicitar Diagnostico</a> -->
                           
                         </div>
                     </div>

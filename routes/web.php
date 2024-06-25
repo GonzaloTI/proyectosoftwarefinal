@@ -110,11 +110,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('diagnosticos', DiagnosticoController::class);
     Route::resource('historial', DiagnosticoController::class);
     
+    
 });
 // /diagnostico/create
 Route::middleware('auth')->group(function () {
     Route::resource('recomendacion', RecomendacionController::class);
 });
-
+Route::post('/ruta', 'Controlador@metodo')->middleware('auth');
 
 // /recomendacion/create
