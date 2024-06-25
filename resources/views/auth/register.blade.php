@@ -146,7 +146,7 @@
                             </div>
                             <!-- Submit Button-->
                             <div class="d-grid"><button class="btn btn-dark btn-lg" id="submitButton"
-                                    type="submit">Submit</button></div>
+                                    type="submit">Submit </button></div>
                         </form>
                     </div>
                 </div>

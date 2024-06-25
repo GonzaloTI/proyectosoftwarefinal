@@ -26,7 +26,7 @@ class RegisterController extends Controller{
         $Client = Cliente::create(request(['ci','nombre','a_paterno','a_materno','sexo','telefono','direccion']));
         $Client->estado='h';
       
-        $this->validate(request(),['name'=>'required','email'=>'required|email','password'=>'required|confirmed',]);
+        //$this->validate(request(),['name'=>'required','email'=>'required|email','password'=>'required|confirmed',]);
        
         $user = User::create(request(['name','email','password']));
         $user->role='cliente';
