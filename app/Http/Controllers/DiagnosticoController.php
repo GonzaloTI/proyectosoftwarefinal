@@ -13,9 +13,17 @@ class DiagnosticoController extends Controller
 {
     public function index()
     {
-        $diagnosticos = Diagnostico::all(); // Obtener todos los diagnósticos de la base de datos
-        return view('diagnosticos.index', compact('diagnosticos')); // Mostrar la vista index con los diagnósticos
+        // Obtener el usuario autenticado
+        $user = auth()->user();
+    
+        // Obtener todos los diagnósticos del usuario autenticado con la relación 'medico' cargada
+        $diagnosticos = Diagnostico::where('user_id_cliente', $user->id)
+                                   ->with('medico') // Cargar la relación 'medico'
+                                   ->get();
+    
+        return view('diagnosticos.index', compact('diagnosticos'));
     }
+
 
     public function create()
     {

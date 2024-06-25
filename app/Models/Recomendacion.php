@@ -15,6 +15,7 @@ class Recomendacion extends Model
         'diagnostico_id',
         'recomendacion',
         'nombre_medico', // Nuevo campo para almacenar el nombre del médico
+        'user_id_cliente'
     ];
 
     // Definir la relación con el modelo Diagnostico

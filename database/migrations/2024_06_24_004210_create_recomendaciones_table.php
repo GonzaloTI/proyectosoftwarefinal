@@ -18,6 +18,7 @@ class CreateRecomendacionesTable extends Migration
             $table->unsignedBigInteger('diagnostico_id');
             $table->text('recomendacion')->notNullable();
             $table->string('nombre_medico')->nullable(); // Añadir campo para el nombre del médico
+            $table->string('user_id_cliente')->nullable();
             $table->timestamps();
 
             // Establecer la relación con la tabla diagnostico

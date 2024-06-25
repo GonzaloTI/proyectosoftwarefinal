@@ -44,8 +44,8 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Recursos</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-                                <li><a class="dropdown-item" href="blog-home.html">Blog Home</a></li>
-                                <li><a class="dropdown-item" href="blog-post.html">Blog Post</a></li>
+                                <li><a class="dropdown-item" href="{{ route('historial.index') }}">Historial</a></li>
+                                <li><a class="dropdown-item" href="{{ route('recomendacion.index') }}">Recomendaciones</a></li>
                             </ul>
                         </li>
                         <li class="nav-item {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}">
