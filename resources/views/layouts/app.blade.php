@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
     
-        <title>@yield('title') -Juridico</title>
+        <title>@yield('title') -Diagnostico IA</title>
     
         <!-- Custom fonts for this template-->
         <link href="{{asset('bsadmin/vendor/fontawesome-free/css/all.min.css  ')}}" rel="stylesheet" type="text/css">
@@ -42,58 +42,71 @@
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.index')}}">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('medico.index') }}">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
-                    <div class="sidebar-brand-text mx-3"> Proy Software</div>
+                    <div  class="sidebar-brand-text mx-3"> Proy Software</div>
                 </a>
     
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
     
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item active">
+                <!-- <li class="nav-item active">
                     <a class="nav-link" href="{{route('admin.index')}}">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>INICIO</span></a>
-                </li>
+                </li> -->
                 @auth
-                   <!-- Divider -->
-                   <hr class="sidebar-divider">
-    
-                   <!-- Heading -->
-                   <div class="sidebar-heading">
-                       Mod. USUARIO
-                   </div>
-       
-                   <!-- Nav Item - Pages Collapse Menu -->
-                   <li class="nav-item">
-                       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-                           aria-expanded="true" aria-controls="collapseOne">
-                           <i class="fas fa-fw fa-cog"></i>
-                           <span>USUARIO</span>
-                       </a>
-                       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-                           <div class="bg-white py-2 collapse-inner rounded">
-                               <h6 class="collapse-header">Custom Components:</h6>
-                               @if (Auth::user()->role=="admin")
-                               <a class="collapse-item" href="{{route('admin.registrarusuario')}}"> Usuarios</a>                              
-                               <a class="collapse-item" href="{{route('admin.listarMedico')}}">Medico</a>
-                                <a class="collapse-item" href="{{route('admin.listarcliente')}}"> Clientes</a> 
-                                @endif
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
-                                <div class="bg-white py-2 collapse-inner rounded">
-                                    <h6 class="collapse-header">Custom Components:</h6>
-                                 
-                                    <a class="collapse-item" href="{{route('diagnosticos.create')}}"> diagnosticos</a>                              
-                                    <a class="collapse-item" href="{{route('diagnosticos.index')}}"> lista de diagnosticos</a> 
-                                    
-                                 </div>
-                            </div>
-                       </div>
-                   </li>
-                @endauth
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Mod. USUARIO
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>USUARIO</span>
+        </a>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Custom Components:</h6>
+                @if (Auth::user()->role == "admin")
+                    <a class="collapse-item" href="{{ route('admin.registrarusuario') }}">Usuarios</a>
+                    <a class="collapse-item" href="{{ route('admin.listarMedico') }}">Medico</a>
+                    <a class="collapse-item" href="{{ route('admin.listarcliente') }}">Clientes</a>
+                @endif
+                @if (Auth::user()->role == "medico")
+                    <a class="collapse-item" href="{{ route('recomendacion.create') }}">Solicitudes de diagnosticos</a>
+                    <!-- <a class="collapse-item" href="{{ route('admin.listarMedico') }}">Medico</a>
+                    <a class="collapse-item" href="{{ route('admin.listarcliente') }}">Clientes</a> -->
+                @endif
+                @if (Auth::user()->role == "cliente")
+                    <a class="collapse-item" href="{{ route('recomendacion.index') }}">Recomendaciones</a>
+                    <a class="collapse-item" href="{{ route('historial.index') }}">Historial</a>
+                    <a class="collapse-item" href="{{ route('index') }}">Inicio</a>
+                @endif
+                @if (Auth::user()->role == "admin" )
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" href="{{ route('diagnosticos.create') }}">Diagnósticos</a>
+                        <a class="collapse-item" href="{{ route('diagnosticos.index') }}">Lista de Diagnósticos</a>
+                        <a class="collapse-item" href="{{ route('diagnosticos.createsolicitud') }}">Solicitar Diagnóstico API</a>
+                        <a class="collapse-item" href="{{ route('planes') }}">Planes</a>
+                        <a class="collapse-item" href="{{ route('service') }}">Service</a>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </li>
+@endauth
+
     
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
@@ -194,6 +207,10 @@
                                     <a class="dropdown-item" href="#">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Membresia
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">

@@ -15,10 +15,15 @@ class CreateDiagnosticoTable extends Migration
     {
         Schema::create('diagnostico', function (Blueprint $table) {
             $table->id();
-            $table->integer('ci');
-            $table->string('nombre',30);
-            $table->string('a_paterno',30);
-            $table->string('a_materno',30);
+            $table->string('resultado_ia',240);
+            $table->string('resultado',240);
+            $table->string('estado',40);
+            $table->string('confidence',40);
+            $table->text('data');
+            $table->unsignedBigInteger('user_id_cliente')->nullable();
+            $table->foreign('user_id_cliente')->references('id')->on('users')->nullable();
+            $table->unsignedBigInteger('user_id_medico')->nullable();
+            $table->foreign('user_id_medico')->references('id')->on('users')->nullable();
             $table->timestamps();
         });
     }
