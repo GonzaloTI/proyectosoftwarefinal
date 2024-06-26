@@ -39,5 +39,24 @@
             </tbody>
         </table>
     </div>
+  <!-- Botón para imprimir -->
+  <div class="text-center">
+    <button id="btnImprimir" class="btn btn-primary" onclick="imprimirPagina()">Imprimir</button>
 </div>
+
+
+<!-- Script para imprimir y ocultar el botón -->
+<script>
+    function imprimirPagina() {
+        // Ocultar el botón antes de imprimir
+        var btnImprimir = document.getElementById('btnImprimir');
+        btnImprimir.style.display = 'none';
+
+        // Imprimir la página
+        window.print();
+
+        // Mostrar el botón nuevamente después de imprimir (opcional)
+        btnImprimir.style.display = 'inline-block'; // o 'block' dependiendo de su diseño original
+    }
+</script>
 @endsection

@@ -28,7 +28,8 @@
                 <div class="mb-3">
                     <label for="resultado-ia-{{ $diagnostico->id }}" class="form-label"><strong>Resultado de la IA:</strong></label>
                     <textarea id="resultado-ia-{{ $diagnostico->id }}" class="form-control" rows="5" readonly>{{ $diagnostico->resultado_ia }}</textarea>
-                    
+                    <label for="resultado-ia-{{ $diagnostico->id }}" class="form-label"><strong>Resultado Por el Especialista:</strong></label>
+                    <textarea id="resultado-{{ $diagnostico->id }}" class="form-control" rows="3" readonly>{{ $diagnostico->resultado}}</textarea>
                 </div>
                 
                 <div class="mb-2">
