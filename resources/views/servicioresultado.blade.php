@@ -52,6 +52,10 @@
                 @else
                 <p>No hay predicciones disponibles</p>
                 @endif
+                <div>
+                    <h1>Resultados de Detección</h1>
+                    <p>{!! $interpretacion !!}</p>
+                </div>
                 <div style="position: relative; display: inline-block;">
                     <img id="id_imagen" src="{{ asset($ecogrfianew->path) }}" alt="Imagen de Ecografía">
                     <canvas id="id_cuadro" style="border: 1px solid black; position: absolute; top: 0; left: 0;"></canvas>
