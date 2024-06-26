@@ -103,6 +103,8 @@ Route::post('/admin/registrarClientes/editarC1/{id}', [ClienteController::class,
 
 Route::get('/diagnosticos/crearsolicitud', [DiagnosticoController::class, 'createsolicitud'])->name('diagnosticos.createsolicitud');
 Route::post('/diagnosticos/solicitarAPI', [DiagnosticoController::class, 'solicitudAPI'])->name('diagnosticos.api.enviar');
+//Route::post('/diagnosticos/solicitarAPI', [DiagnosticoController::class, 'prueba'])->name('diagnosticos.api.prueba');
+
 /*/////////// RUTAS DE SOLICITAR DIAGNOSTICO Y RECOMENDACIONES////////////////// */
 
 

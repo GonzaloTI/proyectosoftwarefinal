@@ -10,15 +10,18 @@
                 <div class="col-lg-8 col-xl-7 col-xxl-6">
                     <div class="my-5 text-center text-xl-start">
                         <h1 class="display-5 fw-bolder text-white mb-2">Un sistema de Diagnostico por IA</h1>
-                        <p class="lead fw-normal text-white-50 mb-4">Obtenga un resultado rapido y eficaz con la ayuda de profesionales</p>
+                        <p class="lead fw-normal text-white-50 mb-4">Obtenga un resultado rapido y eficaz con la ayuda de
+                            profesionales</p>
                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                             <!-- <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Solicitar Diagnostico</a> -->
-                          
+
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5"
-                        src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                    <img class="img-fluid rounded-3 my-5" src="{{ asset('images/liver.png') }}" alt="..."
+                        style="width: 600px; height: 400px;" />
+                </div>
             </div>
         </div>
     </header>
@@ -29,12 +32,12 @@
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <h2 class="fw-bolder mb-0">A better way to start building.</h2>
                 </div>
-               
+
             </div>
         </div>
     </section>
     <!-- Testimonial section-->
-  
+
     <!-- Blog preview section-->
     <section class="py-5">
         <div class="container px-5 my-5">
@@ -48,8 +51,8 @@
                 </div>
             </div>
             <div class="row gx-5">
-         
-              
+
+
                 <div class="col-lg-4 mb-5">
                     <div class="card h-100 shadow border-0">
                         <img class="card-img-top" src="https://dummyimage.com/600x350/6c757d/343a40" alt="..." />
