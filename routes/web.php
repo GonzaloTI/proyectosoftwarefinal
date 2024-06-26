@@ -6,7 +6,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MedicoController;
-use App\Http\Controllers\PLanesController;
+use App\Http\Controllers\PlanesController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Middleware\CheckSubscription;
@@ -35,8 +35,8 @@ Route::get('/home', function () { return view('home');});
 Route::get('/index', function () {    return view('index');})->name('index2');
 Route::get('/contact', function () {return view('contact');})->name('contact');
 
-Route::get('/planes', [PLanesController::class, 'index'])->name('planes');
-Route::get('/planes/show/{id}', [PLanesController::class, 'view'])->name('planes.view')->middleware('auth');
+Route::get('/planes', [PlanesController::class, 'index'])->name('planes');
+Route::get('/planes/show/{id}', [PlanesController::class, 'view'])->name('planes.view')->middleware('auth');
 Route::get('/service', [ServicioController::class, 'index'])->name('service');/*->middleware(CheckSubscription::class);*/
 Route::post('/webhook/paypal', [PaypalController::class, 'webhook'])->name('webhook');
 
