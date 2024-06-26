@@ -43,18 +43,22 @@
                                 x: {{ $prediction->x }}, y: {{ $prediction->y }}, 
                                 width: {{ $prediction->width }}, height: {{ $prediction->height }},
                                 confidence: {{ $prediction->confidence }}, class: {{ $prediction->class }},
-                                class_id: {{ $prediction->class_id }}, detection_id: {{ $prediction->detection_id }}
+                               
                             </li>
                         @endforeach
                     </ul>
                 @else
                     <p>No hay predicciones disponibles</p>
                 @endif
-                    <div class="card-body">
-                       
-                        
-                        <img src="{{ asset($ecogrfianew->path) }}" alt="Imagen de Ecografía"  style="height: 500px; overflow-y: auto;">
-                    </div>
+                <div>
+                    <h1>Resultados de Detección</h1>
+                    <p>{!! $interpretacion !!}</p>
+                </div>
+                <div style="position: relative; display: inline-block;">
+                    <img id="id_imagen" src="{{ asset($ecogrfianew->path) }}" alt="Imagen de Ecografía">
+                    <canvas id="id_cuadro" style="border: 3px solid rgb(245, 2, 2); position: absolute; top: 0; left: 0;"></canvas>
+                </div>
+
 
                     <!-- Mostrar la imagen -->
                  
@@ -67,53 +71,69 @@
             <div class="col-4" style="background-color: #f7fdf8;"> <!-- Columna de tamaño 4 -->
                 <!-- Contenido de la columna -->
               
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="image-container" style="position: relative;">
-                <img src="{{ asset($ecogrfianew->path) }}" alt="Imagen de Ecografía" id="ecografia-image" style="max-width: 100%; height: auto;">
-                <canvas id="canvas" style="position: absolute; top: 0; left: 0;"></canvas>
+                    <!-- Contenido de la columna -->
+                   
+                    <p>Obtenga un resultado rapido y eficaz con la ayuda de Inteligencia Artificial y de profesionales</p>
+                     <h2>Instrucciones:
+                    </h2>
+                    <p>enviar la imagen de su ecografia </p>
+                    <p>se procesara la imagen mediante un mecanismo de Reconocimiento de imagen por IA </p>
+                    <p>los resultados seran enviados a un profecional segun su plan de suscripcion </p>
+                    <p>la revision por un profesional sera pronta </p>
+                    <p>se le daran recomendaciones y un diagnostico segun el profesional designado </p>
+                    <p>gracias por usar el servicio </p>
+                
             </div>
         </div>
     </section>
 @endsection
 
-@push('scripts')
+
+
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const image = document.getElementById('ecografia-image');
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-
-        image.onload = function() {
-            // Ajustar el canvas al tamaño de la imagen
-            canvas.width = image.naturalWidth;
-            canvas.height = image.naturalHeight;
-
-            // Dibujar una línea en el medio de la imagen
-            ctx.beginPath();
-            ctx.moveTo(0, canvas.height / 2);
-            ctx.lineTo(canvas.width, canvas.height / 2);
+        function dibujarRectangulo(x, y, width, height) {
+            const canvas = document.getElementById('id_cuadro');
+            const ctx = canvas.getContext('2d');
             ctx.strokeStyle = 'red';
             ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.rect(x, y, width, height);
             ctx.stroke();
-        };
-    });
-</script>
-@endpush
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        document.getElementById('image').addEventListener('change', function(e) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var img = document.createElement('img');
-                img.src = e.target.result;
-                img.alt = 'Image preview';
-                img.style.maxWidth = '100%';
-                img.style.maxHeight = '100%';
-                document.getElementById('image-list').appendChild(img);
+            ctx.closePath();
+        }
+
+        function dibujar() {
+            const cuadro = document.getElementById("cuadro");
+            try {
+                const value = JSON.parse(cuadro.value);
+
+                if (value && value.predictions && value.predictions.length > 0) {
+                    const imagen = value.image; // Obtener la información de la imagen
+                    const width_img = imagen.width; // Ancho de la imagen
+                    const height_img = imagen.height; // Alto de la imagen
+
+                    console.log("Ancho de la imagen: " + width_img + ", Alto de la imagen: " + height_img);
+
+                    const predictions = value.predictions;
+
+                    const canvas = document.getElementById('id_cuadro');
+                    canvas.width = width_img; // Redimension del canvas, al tamaño de la imagen
+                    canvas.height = height_img;
+
+                    predictions.forEach(prediction => {
+                        const { x, y, width, height } = prediction;
+                        dibujarRectangulo(x, y, width, height);
+                    });
+                } else {
+                    console.log("No hay datos de predicciones disponibles.");
+                }
+            } catch (error) {
+                console.error("Error al procesar los datos:", error);
             }
-            reader.readAsDataURL(this.files[0]);
-        });
+        }
+
+        dibujar(); // Llamar a la función para dibujar inicialmente
     });
 </script>

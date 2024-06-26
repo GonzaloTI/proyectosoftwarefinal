@@ -158,13 +158,17 @@ class DiagnosticoController extends Controller
                 $jsonencore = json_encode($responseData);
                 $dataApi = json_decode($jsonencore);
 
+                $responseData22 = json_decode($jsonencore, true);
+                                    // Iterar sobre las predicciones y mostrar mensajes específicos
+               // dd('Respuesta exitosa', $jsonencore);
+                $interpretacion =$this->identificar($responseData22);
                 $userId =  auth()->user()->id;
 
                 $medicouser = $medico->user;
 
                $diagnosticonew = Diagnostico::create([
              
-                'resultado_ia' => 'se ha detectado ..',
+                'resultado_ia' =>  $interpretacion,
                 'resultado'=> 'en espera',
                 'estado'=> 'revision',
                 'confidence'=> '80%',
@@ -178,7 +182,7 @@ class DiagnosticoController extends Controller
                     'id_diagnostico'=> $diagnosticonew->id,    
             ]);
              //  dd('Respuesta exitosa', $jsonencore);
-                return view('servicioresultado', compact('dataApi','ecogrfianew','jsonencore'));
+                return view('servicioresultado', compact('dataApi','ecogrfianew','jsonencore','interpretacion'));
              //   return redirect()->back()->with('success', 'Imagen enviada correctamente. Respuesta: ' . json_encode($responseData));
             } else {
               //  dd('Error en la respuesta de la API', $response); // Punto de depuración
@@ -191,7 +195,83 @@ class DiagnosticoController extends Controller
     }
     
 
-    
+    public function identificar($responseData){
+
+    $resultado = "Se ha detectado: ";
+    if (isset($responseData['predictions'])) {
+
+    foreach ($responseData['predictions'] as $prediction) {
+        $class = strtoupper($prediction['class']); // Convertir la clase a mayúsculas
+
+        switch ($class) {
+            case 'HCC':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= "Detección de Carcinoma Hepatocelular (HCC) con una confianza de " . $formattedConfidence . "% ";
+                break;
+            case 'HV':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= "Detección de Vena Hepática (HV) con una confianza de " . $formattedConfidence . "% ";
+                break;
+            case 'IVC':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= "Detección de Vena Cava Inferior (IVC) con una confianza de " .  $formattedConfidence . "% ";
+                break;
+            case 'K':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= " morfología o características específicas con una confianza de " .  $formattedConfidence . "% ";
+                break;
+            case 'KC':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= "características específicas del hígado o de las vías biliares una confianza de " .  $formattedConfidence . "% ";
+                break;
+            case 'KM':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= "Detección de KM con una confianza de " .  $formattedConfidence . "% ";
+                break;
+            case 'LT':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= "Lóbulo Izquierdo del Hígado con una confianza de " .  $formattedConfidence . "% ";
+                break;
+            case 'SAG':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= "cortes longitudinales una confianza de " .  $formattedConfidence . "% ";
+                break;
+            case 'LVR':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= "Detección de Lesión de Vías Biliares (LVR) con una confianza de " .  $formattedConfidence . "% ";
+                break;
+            case 'PV':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= "Vena Porta, con una confianza de " .  $formattedConfidence . "% ";
+                break;
+            case 'RT':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= "parte derecha del hígado con una confianza de " .  $formattedConfidence . "% ";
+                break;
+            case 'TRANS':
+                $confidence = $prediction['confidence'] * 100;
+                $formattedConfidence = number_format($confidence, 2);
+                $resultado .= "sección transversal con una confianza de " .  $formattedConfidence . "% ";
+                break;
+            default:
+                $resultado .= "Detección de una clase no especificada con una confianza de " . $prediction['confidence']. " ";
+                break;
+        }
+    }
+}
+    return $resultado;
+}
 
 
 

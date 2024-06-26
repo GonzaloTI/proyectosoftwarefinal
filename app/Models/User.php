@@ -48,12 +48,7 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
 
     }
-    public function venta()
-    {
-        //relacion uno a muchos con venta ,la llave 
-        // de user se va a venta
-        return $this->hasMany('App\Models\venta');
-    }
+   
 
     public function subscribed()
     {

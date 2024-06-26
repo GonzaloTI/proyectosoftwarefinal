@@ -48,9 +48,9 @@
                                 <li><a class="dropdown-item" href="{{ route('recomendacion.index') }}">Recomendaciones</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}">
+                      <!--  <li class="nav-item {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('contact') }}">Contacto</a>
-                        </li>
+                        </li>-->
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 

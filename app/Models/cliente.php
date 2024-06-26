@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class cliente extends Model
+class Cliente extends Model
 {
     use HasFactory;
 
@@ -26,11 +26,7 @@ class cliente extends Model
     ];
 
 
-    public function venta(){
-        //relacion uno a muchos 
-        //un cliente tendra muchas ventas
-        return $this->hasMany('App\Models\venta');
-    }
+  
     public function diagnosticos()
     {
         return $this->hasMany(Diagnostico::class);

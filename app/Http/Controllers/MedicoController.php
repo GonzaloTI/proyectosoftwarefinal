@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Medico;
+use App\Models\User;
 class MedicoController extends Controller
 {
   
@@ -25,6 +26,8 @@ class MedicoController extends Controller
 
     /*Guarda los datos del cliente */
     public function storedMedico(Request $request){
+     
+     try{
         $this->validate(request(),['ci'=>'required',
                                                    'nombre'=>'required',
                                                    'a_paterno'=>'required',
@@ -36,13 +39,26 @@ class MedicoController extends Controller
                                                     'user_id']);
 
 
-        $user = Medico::create(request(['ci','nombre','a_paterno','a_materno','especialidad','sexo','telefono','direccion','user_id']));
-        $user->estado='h';
+        $usermedico = Medico::create(request(['ci','nombre','a_paterno','a_materno','especialidad','sexo','telefono','direccion']));
+        $usermedico->estado='h';
        
         
+      
+        $user = User::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => request('password'),
+        ]);
+        $user->role = 'medico';
         $user->save();
+        $usermedico->user_id=$user->id;
+        $usermedico->save();
 
-        return redirect()->route('admin.listarMedico');     
+        return redirect()->route('admin.listarMedico');   
+    } catch (\Exception $e) {
+        return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+    }
+        
     }
 
     /*////// Elimina a un cliente //// */

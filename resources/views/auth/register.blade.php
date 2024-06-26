@@ -15,7 +15,7 @@
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-8 col-xl-6">
                         <!-- to get an API token!-->
-                        <form id="contactForm" method="POST">
+                        <form method="POST" action="{{route('register.store')}}">
                             @csrf
                             <!-- Name input-->
                             <div class="form-floating mb-3">
@@ -57,7 +57,7 @@
                                 <input class="form-control" id="sexo" name="sexo" type="text"
                                     placeholder="Ingresa tu genero..." data-sb-validations="required" />
                                 <label for="sexo">Genero</label>
-                                <div class="invalid-feedback" data-sb-feedback="sexo:required">Generi requerido</div>
+                                <div class="invalid-feedback" data-sb-feedback="sexo:required">Genero requerido</div>
                                 @error('sexo')
                                     <p style="color: red">{{ $message }}</p>
                                 @enderror
@@ -110,8 +110,9 @@
                             </div>
 
                             <!-- Email address input-->
+                           
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="email" type="email" placeholder="name@example.com"
+                                <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com"
                                     data-sb-validations="required,email" />
                                 <label for="email">Email address</label>
                                 <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
@@ -120,7 +121,6 @@
                                     <p style="color: red">{{ $message }}</p>
                                 @enderror
                             </div>
-
                             <!-- Password input-->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="password" name="password" type="password"
