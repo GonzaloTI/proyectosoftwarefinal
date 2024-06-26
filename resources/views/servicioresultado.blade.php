@@ -40,8 +40,7 @@
                     <ul>
                         @foreach ($dataApi->predictions as $prediction)
                             <li>
-                                x: {{ $prediction->x }}, y: {{ $prediction->y }}, 
-                                width: {{ $prediction->width }}, height: {{ $prediction->height }},
+                              
                                 confidence: {{ $prediction->confidence }}, class: {{ $prediction->class }},
                                
                             </li>
